@@ -32,4 +32,10 @@ export const AddButton = styled.button`
     color: #333;
     font-size: 1rem;
     font-weight: 700;
+
+    :hover{
+        transition: 0.2s;
+        background-color: #AAA;
+        border: 1px solid #AAA;
+    }
 `;
