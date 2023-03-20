@@ -1,10 +1,14 @@
+import AddTodo from '../../AddTodo'
 import Header from '../../Layout/Header'
+import PageWrapper from '../../Layout/PageWrapper'
+
 function MainPage() {
   return (
     <>
-    <Header>
-
-    </Header>
+    <Header/>
+    <PageWrapper>
+      <AddTodo/>
+    </PageWrapper>
     </>
   )
 }
