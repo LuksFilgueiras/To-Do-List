@@ -6,19 +6,13 @@ import PageWrapper from '../../Layout/PageWrapper'
 import Todo from '../../Todo'
 
 
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+
+import {TaskContext} from '../../../Context/TaskContext'
 
 function MainPage() {
-  const [todos, setTodos] = useState([]);
+  const {todos} = useContext(TaskContext)
 
-  useEffect(() => {
-    fetch("http://localhost:3333/todos")
-    .then((response) => response.json())
-    .then(data =>
-    {
-      setTodos(data);
-    })
-  }, []);
 
   return (
     <>
@@ -28,7 +22,7 @@ function MainPage() {
       <TodosDisplay>
           {
             todos.map((todo) => {
-              return <Todo key={todo.id} id={todo.id} title={todo.title}/>
+              return <Todo key={todo.id} id={todo.id} title={todo.title} todo={todo}/>
             })
           }
       </TodosDisplay>
