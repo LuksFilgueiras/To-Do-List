@@ -1,26 +1,20 @@
 import { InputContainer, InputText, AddButton } from "./styles";
-import { useState } from "react";
 
+import { useContext, useState } from "react";
+
+import { TaskContext } from "../../Context/TaskContext";
 
 function AddTodo() {
-    const [title, setTitle] = useState("");
+    const [todo, setTodo] = useState({"title": "New Todo", "tasks": []});
     
+    const {addToDo} = useContext(TaskContext);
+
     const OnChangeHandler = (e) => {
-        setTitle(e.target.value);
+        setTodo({...todo, "title": e.target.value})
     }
 
     const AddTodo = () => {
-        let newTodo = {
-            "title": title,
-        }
-
-        fetch("http://localhost:3333/todos", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newTodo),
-          })
+        addToDo(todo);
     }
 
   return (
