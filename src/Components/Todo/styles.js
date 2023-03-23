@@ -4,25 +4,50 @@ export const TodoContainer = styled.div`
     width: 100%;
     border: 1px solid #DDD;
     border-radius: 2px;
-    height: auto;
     max-width: 20rem;
+    break-inside: avoid;
+    margin-bottom: 2rem;
+
+    .add-task-plus:hover{
+        transition: 0.2s;
+        color: #AAA;
+    }
+
+    @media(max-width: 900px){
+        width: 100%;
+        max-width: 100%;
+    }
+`;
+
+export const TitleContainer = styled.div`
+    color: #333;
+    display: flex;
+    align-items: center;
+    background-color: #DDD;
+    height: 2.5rem;
 
     .title{
         padding: 0 1rem;
         font-size: 1.5rem;
         font-weight: 400;
-        background-color: #DDD;
-        color: #333;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
+        width: 100%;
     }
 
-    .add-task-container{
-        display: flex;
-        border-bottom: 1px dotted #DDD;
-        align-items: center;
+    .trash-bttn{
+        display: block;
+        cursor: pointer;
+        padding: 0 1rem;
+        font-size: 1.5rem;
+        height: 2.5rem;
+        text-align: center;
+        line-height: 3rem;
     }
+`;
+
+export const AddTaskContainer = styled.div`
+    display: flex;
+    border-bottom: 1px dotted #DDD;
+    align-items: center;
 
     .add-task{
         box-sizing: border-box;
@@ -43,23 +68,11 @@ export const TodoContainer = styled.div`
     .add-task-plus{
         display: block;
         cursor: pointer;
-        background: none;
-        border: none;
         color: #DDD;
         padding: 0 1rem;
         font-size: 1.5rem;
         height: 2.5rem;
         text-align: center;
         line-height: 3rem;
-    }
-
-    .add-task-plus:hover{
-        transition: 0.2s;
-        color: #AAA;
-    }
-
-    @media(max-width: 900px){
-        width: 100%;
-        max-width: 100%;
     }
 `;
