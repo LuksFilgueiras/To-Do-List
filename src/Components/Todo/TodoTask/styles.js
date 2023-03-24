@@ -16,10 +16,7 @@ export const TaskEdit = styled.h2`
     padding: 0 1rem;
     box-sizing: border-box;
     font-weight: 100;
-
-    :focus{
-        outline: none;
-    }
+    text-decoration: ${props => props.textDecoration};
 `;
 
 export const TaskCheckbox = styled.input`
@@ -34,10 +31,11 @@ export const TaskCheckbox = styled.input`
 
     :checked{
         transition: 0.2s;
-        background-color: #87d1a1;
-        border: 1px solid #87d1a1;
+        background-color: ${props => props.backgroundColor};
+        border: 1px solid ${props => props.backgroundColor};
         border-radius: 50%;
     }
+
 `;
 
 export const TaskDelete = styled.div`
@@ -47,3 +45,12 @@ export const TaskDelete = styled.div`
     cursor: pointer;
     color: #F99494;
 `;
+
+
+TaskEdit.defaultProps = {
+    textDecoration: "none",
+}
+
+TaskCheckbox.defaultProps = {
+    backgroundColor: "#333",
+}

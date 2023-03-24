@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const TodosDisplay = styled.div`
     width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 2rem;
+    columns: 4;
+    column-gap: 2rem;
+    height: auto;
 
     @media(max-width: 1000px){
-        grid-template-columns: auto auto;
+        columns: 2;
     }
 
     @media(max-width: 600px){
-        grid-template-columns: auto;
+        columns: 1;
     }
 `;

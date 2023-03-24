@@ -17,6 +17,12 @@ export const TaskProvider = ({children}) => {
         setTodos(data)
     }
 
+    const fetchToDoByID = async (todo) => {
+        const response = await fetch("http://localhost:3333/todos/" + todo.id)
+        const data = await response.json()
+        return data;
+    }
+
     const addToDo = async (todo) => {    
         const response = await fetch("http://localhost:3333/todos", {
             method: "POST",
@@ -38,8 +44,14 @@ export const TaskProvider = ({children}) => {
         setTodos(todos.map(item => item.id === todo.id ? {...item, ...data} : item ));
     }
 
+    const deleteToDo = async (todo) => {
+        await fetch("http://localhost:3333/todos/" + todo.id, {
+            method: "DELETE",
+        })
+        setTodos(todos.filter(item => item.id !== todo.id ? item : null));
+    }
     return(
-        <TaskContext.Provider value={{todos, fetchToDos, addToDo, updateToDo}}>
+        <TaskContext.Provider value={{todos, fetchToDos, fetchToDoByID, addToDo, updateToDo, deleteToDo}}>
             {children}
         </TaskContext.Provider>
     )
