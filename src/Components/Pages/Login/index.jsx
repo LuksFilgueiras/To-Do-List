@@ -1,17 +1,25 @@
 import { PageContainer } from "../../Layout/PageWrapper/styles"
 import { InputContainer, LoginBox, LoginContainer, Button, ButtonContainer } from "./styles"
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate  } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
+
+import { TaskContext } from "../../../Context/TaskContext";
 
 function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const {setTodos} = useContext(TaskContext);
+
+  useEffect(() => {
+    setTodos([]);
+  }, [setTodos])
 
   const handleEmail = (e) => {
     setEmail(e.target.value);

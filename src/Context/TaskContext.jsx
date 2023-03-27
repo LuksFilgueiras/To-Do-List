@@ -10,12 +10,13 @@ export const TaskProvider = ({children}) => {
 
     useEffect(() => {
         fetchToDos();
-    });
+    }, []);
 
     // TODO REQUESTS
 
     const fetchToDos = async () =>{
-        const response = await getDocs(todosRef)
+        console.log(todos)
+        const response = await getDocs(todosRef);
         const userData = response.docs.filter(doc => doc.data().user_uid === auth?.currentUser?.uid ? doc : null)
         const filteredData = userData.map(doc => ({...doc.data(), id: doc.id}))
         setTodos(filteredData)
@@ -23,19 +24,22 @@ export const TaskProvider = ({children}) => {
 
     const addToDo = async (todo) => {  
          await addDoc(todosRef, {...todo, "user_uid": auth?.currentUser?.uid})
+         fetchToDos();
     }
 
     const updateToDo = async (todo) =>{
         const newTodo = doc(db, "todos", todo.id)
         await updateDoc(newTodo, {"tasks": todo.tasks});
+        fetchToDos();
     }
 
     const deleteToDo = async (todo) => {
         const todoDoc = doc(db, "todos", todo.id)
         await deleteDoc(todoDoc);
+        fetchToDos();
     }
     return(
-        <TaskContext.Provider value={{todos, fetchToDos, addToDo, updateToDo, deleteToDo}}>
+        <TaskContext.Provider value={{todos, setTodos, fetchToDos, addToDo, updateToDo, deleteToDo}}>
             {children}
         </TaskContext.Provider>
     )

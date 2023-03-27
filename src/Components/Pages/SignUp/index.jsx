@@ -8,7 +8,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
 
-
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +27,7 @@ function SignUp() {
   }
 
   const handleSignUp = async () => {
+      
       const userData = {"email": email, "password": password}
       await createUserWithEmailAndPassword(auth, userData.email, userData.password)
       .then(() => {
@@ -35,6 +35,7 @@ function SignUp() {
       })
       .catch(error => alert(error));
   }
+
 
   return (
     <PageContainer>
