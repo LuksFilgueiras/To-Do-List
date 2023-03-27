@@ -18,6 +18,7 @@ export const NavStyled = styled.nav`
     padding: 0 1.5rem 0 1.5rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `;
 
 export const LogoContainer = styled.div`
@@ -28,4 +29,24 @@ export const LogoContainer = styled.div`
     background-image: url(${logo});
     background-size: cover;
     background-position: center;
+
+    h1{
+        font-size: 0.8rem;
+        font-weight: 300;
+        margin-left: 70px;
+        padding: 22px 0;
+    }
+`;
+
+export const SignOut = styled.div`
+    width: 5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    :hover{
+        transition: 0.5s;
+        transform: scale(1.05)
+    }
 `;

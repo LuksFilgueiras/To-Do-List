@@ -63,7 +63,6 @@ function Todo({title, todo}) {
           })
         }
 
-
         {
           filterInProgress().length > 0 ?
           (
