@@ -1,22 +1,3 @@
 {
-  "todos": [
-    {
-      "title": "Learn To Code",
-      "tasks": [
-        {
-          "progress": 0,
-          "content": "Firebase"
-        },
-        {
-          "progress": 0,
-          "content": "Meta Framework"
-        },
-        {
-          "progress": 0,
-          "content": "Serveless"
-        }
-      ],
-      "id": 1
-    }
-  ]
+  "todos": []
 }

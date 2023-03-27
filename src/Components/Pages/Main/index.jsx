@@ -6,13 +6,11 @@ import PageWrapper from '../../Layout/PageWrapper'
 import Todo from '../../Todo'
 
 
+import { TaskContext } from '../../../Context/TaskContext'
 import { useContext } from 'react'
 
-import {TaskContext} from '../../../Context/TaskContext'
-
 function MainPage() {
-  const {todos} = useContext(TaskContext)
-
+  const { todos } = useContext(TaskContext)
 
   return (
     <>
