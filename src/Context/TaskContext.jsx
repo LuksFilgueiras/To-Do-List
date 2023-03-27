@@ -1,57 +1,41 @@
 import { createContext, useEffect, useState } from "react";
+import { db, auth } from '../Firebase/firebase'
+import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({children}) => {
     const [todos, setTodos] = useState([]);
+    const todosRef = collection(db, "todos");
 
     useEffect(() => {
         fetchToDos();
-    }, []);
+    });
 
     // TODO REQUESTS
 
     const fetchToDos = async () =>{
-        const response = await fetch("http://localhost:3333/todos?_sort=id&_order=desc")
-        const data = await response.json()
-        setTodos(data)
+        const response = await getDocs(todosRef)
+        const userData = response.docs.filter(doc => doc.data().user_uid === auth?.currentUser?.uid ? doc : null)
+        const filteredData = userData.map(doc => ({...doc.data(), id: doc.id}))
+        setTodos(filteredData)
     }
 
-    const fetchToDoByID = async (todo) => {
-        const response = await fetch("http://localhost:3333/todos/" + todo.id)
-        const data = await response.json()
-        return data;
-    }
-
-    const addToDo = async (todo) => {    
-        const response = await fetch("http://localhost:3333/todos", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(todo),
-        })
-
-        const data = await response.json();
-        setTodos([data, ...todos]);
+    const addToDo = async (todo) => {  
+         await addDoc(todosRef, {...todo, "user_uid": auth?.currentUser?.uid})
     }
 
     const updateToDo = async (todo) =>{
-        const response = await fetch("http://localhost:3333/todos/" + todo.id, {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(todo),
-        })
-        const data = await response.json();
-        setTodos(todos.map(item => item.id === todo.id ? {...item, ...data} : item ));
+        const newTodo = doc(db, "todos", todo.id)
+        await updateDoc(newTodo, {"tasks": todo.tasks});
     }
 
     const deleteToDo = async (todo) => {
-        await fetch("http://localhost:3333/todos/" + todo.id, {
-            method: "DELETE",
-        })
-        setTodos(todos.filter(item => item.id !== todo.id ? item : null));
+        const todoDoc = doc(db, "todos", todo.id)
+        await deleteDoc(todoDoc);
     }
     return(
-        <TaskContext.Provider value={{todos, fetchToDos, fetchToDoByID, addToDo, updateToDo, deleteToDo}}>
+        <TaskContext.Provider value={{todos, fetchToDos, addToDo, updateToDo, deleteToDo}}>
             {children}
         </TaskContext.Provider>
     )

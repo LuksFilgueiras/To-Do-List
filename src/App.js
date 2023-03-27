@@ -8,7 +8,6 @@ import { AuthProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 function App() {
-
   return (
     <AuthProvider>
       <TaskProvider>
