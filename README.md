@@ -16,7 +16,7 @@
 5. Has React-Router-Dom implemented.
 
 
-# Packages Version
+# NPM and Node Version
 > npm version v9.6.2
 
 > node version v18.15.0
