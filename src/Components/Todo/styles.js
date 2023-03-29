@@ -28,7 +28,6 @@ export const TitleContainer = styled.div`
 
     .title{
         padding: 0 1rem;
-        font-size: 1.5rem;
         font-weight: 400;
         width: 100%;
     }
@@ -41,6 +40,14 @@ export const TitleContainer = styled.div`
         height: 2.5rem;
         text-align: center;
         line-height: 3rem;
+    }
+
+    .font-size-normal{
+        font-size: 1.4rem;
+    }
+
+    .font-size-responsive{
+        font-size: 1.2rem;
     }
 `;
 
@@ -76,3 +83,4 @@ export const AddTaskContainer = styled.div`
         line-height: 3rem;
     }
 `;
+

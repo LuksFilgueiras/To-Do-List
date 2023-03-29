@@ -6,25 +6,29 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({children}) => {
     const [todos, setTodos] = useState([]);
-    const todosRef = collection(db, "todos");
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        fetchToDos();
-    }, []);
+    const todosRef = collection(db, "todos");
+    
+    useEffect(() => {  /* eslint-disable-line */
+        fetchToDos();  /* eslint-disable-line */
+    }, []);  /* eslint-disable-line */
 
     // TODO REQUESTS
 
     const fetchToDos = async () =>{
-        console.log(todos)
+        setLoading(true);
         const response = await getDocs(todosRef);
         const userData = response.docs.filter(doc => doc.data().user_uid === auth?.currentUser?.uid ? doc : null)
         const filteredData = userData.map(doc => ({...doc.data(), id: doc.id}))
         setTodos(filteredData)
+        setLoading(false);
     }
 
     const addToDo = async (todo) => {  
-         await addDoc(todosRef, {...todo, "user_uid": auth?.currentUser?.uid})
-         fetchToDos();
+        let newTodoDoc = {...todo, "user_uid": auth?.currentUser?.uid}
+        await addDoc(todosRef, newTodoDoc)
+        fetchToDos();
     }
 
     const updateToDo = async (todo) =>{
@@ -39,7 +43,7 @@ export const TaskProvider = ({children}) => {
         fetchToDos();
     }
     return(
-        <TaskContext.Provider value={{todos, setTodos, fetchToDos, addToDo, updateToDo, deleteToDo}}>
+        <TaskContext.Provider value={{todos, loading, setTodos, fetchToDos, addToDo, updateToDo, deleteToDo}}>
             {children}
         </TaskContext.Provider>
     )

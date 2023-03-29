@@ -14,3 +14,16 @@ export const TodosDisplay = styled.div`
         columns: 1;
     }
 `;
+
+export const LoadingGif = styled.img`
+    height: 2rem;
+    width: 2rem;
+`;
+
+export const LoadingContainer = styled.div`
+    width: 100%;
+    height: 0rem;
+    box-sizing: border-box;
+    position: absolute;
+    top: 9.5rem;
+`;
