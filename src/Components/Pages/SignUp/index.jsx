@@ -4,7 +4,7 @@ import { AiOutlineRollback } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
 
@@ -12,8 +12,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const notify = (message) => toast(message, {
     position: "top-center",
     autoClose: 2000,
@@ -40,11 +42,16 @@ function SignUp() {
   }
 
   const handleSignUp = async () => {
-      
+    
       const userData = {"email": email, "password": password}
       await createUserWithEmailAndPassword(auth, userData.email, userData.password)
       .then(() => {
-          navigate("/");
+          sendEmailVerification(auth.currentUser);
+          if(auth?.currentUser?.emailVerified){
+            navigate("/");
+          }else{
+            navigate(`/login/${auth?.currentUser?.emailVerified}`);
+          }
       })
       .catch(error => {
         if(error.code === "auth/email-already-in-use")

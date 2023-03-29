@@ -15,6 +15,7 @@ function App() {
           <Routes>
             <Route path='/' element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>
             <Route path='/login' element={<Login/>}/>
+            <Route path='/login/:verify' element={<Login/>}/>
             <Route path="/signup" element={<SignUp/>}/>
           </Routes>
         </Router>

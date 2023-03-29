@@ -4,10 +4,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 import { useState } from "react";
-import { useNavigate  } from "react-router-dom"
+import { useNavigate, useParams  } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -24,6 +25,14 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {verify} = useParams()
+
+  useEffect(() => {
+    if(verify === "false"){
+      notify("Email verification needed")
+      navigate('/login');
+    }
+  }, [verify, navigate])
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -41,7 +50,11 @@ function Login() {
     let userData = {"email": email, "password": password}
     await signInWithEmailAndPassword(auth, userData.email, userData.password)
     .then(() => {
-      navigate('/');
+      if(auth?.currentUser?.emailVerified){
+        navigate('/');
+      }else{
+        notify("Email not verified!")
+      }
     })
     .catch(error => {
       if(error.code === "auth/user-not-found")
