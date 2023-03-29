@@ -4,12 +4,25 @@ import TodoTask from "./TodoTask"
 
 import { useContext, useState } from "react"
 import { TaskContext } from "../../Context/TaskContext"
+import { useRef } from "react"
+import { useEffect } from "react"
 
 
 
 function Todo({title, todo}) {
   const {updateToDo, deleteToDo} = useContext(TaskContext);
   const [content, setContent] = useState("New Task!");
+  const [fontSizeReduce, setFontSizeReduce] = useState("font-size-normal")
+
+  const taskName = useRef(null);
+
+  useEffect(() => {
+    console.log(title.length);
+    title.length > 14 ?
+        setFontSizeReduce("font-size-responsive")
+      :
+        setFontSizeReduce("font-size-normal") 
+  }, [title]) 
 
   const onChangeHandler = (e) => {
     setContent(e.target.value);
@@ -22,7 +35,8 @@ function Todo({title, todo}) {
       }
 
       todo.tasks.push(newTask);
-
+      taskName.current.value = "";
+      
       updateToDo(todo);
   }
 
@@ -49,11 +63,11 @@ function Todo({title, todo}) {
   return (
     <TodoContainer>
         <TitleContainer>
-            <h1 className="title">{title}</h1>
+            <h1 className={`title ${fontSizeReduce}`}>{title}</h1>
             <span className="trash-bttn" onClick={deleteThisTodo}><AiFillDelete/></span>
         </TitleContainer>
         <AddTaskContainer>
-          <input className="add-task" placeholder="Add New Task!" onChange={onChangeHandler}/>
+          <input ref={taskName} className="add-task" placeholder="Add New Task!" onChange={onChangeHandler}/>
           <span className="add-task-plus" onClick={AddTask}>{<AiOutlinePlus />}</span>
         </AddTaskContainer>
 
@@ -69,7 +83,7 @@ function Todo({title, todo}) {
             (
               <>
               <TitleContainer>
-                    <h1 className="title">In Progress</h1>
+                    <h1 className={`title ${fontSizeReduce}`}>In Progress</h1>
               </TitleContainer>
               {          
                 filterInProgress().map((task, index) => {
@@ -87,7 +101,7 @@ function Todo({title, todo}) {
           (
             <>
             <TitleContainer>
-              <h1 className="title">Concluded</h1>
+              <h1 className={`title ${fontSizeReduce}`}>Concluded</h1>
             </TitleContainer>
             {
               filterConcluded().map((task, index) => {

@@ -8,9 +8,22 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const notify = (message) => toast(message, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  })
 
   const navigate = useNavigate();
 
@@ -33,12 +46,28 @@ function SignUp() {
       .then(() => {
           navigate("/");
       })
-      .catch(error => alert(error));
+      .catch(error => {
+        if(error.code === "auth/email-already-in-use")
+          notify("Email already in use");
+        if(error.code === "auth/invalid-email")
+          notify("Invalid e-mail");
+        if(error.code === "auth/missing-email")
+          notify("Please enter email!");
+        if(error.code === "auth/wrong-password")
+          notify("Wrong password!");
+        if(error.code === "auth/internal-error")
+          notify("Missing password!");
+        if(error.code === "auth/weak-password")
+          notify("Weak password!")
+        if(error.code === "auth/too-many-requests")
+          notify("Too many requests! wait...")
+      });
   }
 
 
   return (
     <PageContainer>
+      <ToastContainer/>
       <LoginContainer>
         <LoginBox>
           <LogoContainer></LogoContainer>

@@ -1,4 +1,4 @@
-import { TodosDisplay } from './styles'
+import { TodosDisplay, LoadingGif, LoadingContainer } from './styles'
 
 import AddTodo from '../../AddTodo'
 import Header from '../../Layout/Header'
@@ -7,9 +7,16 @@ import Todo from '../../Todo'
 
 import { TaskContext } from '../../../Context/TaskContext'
 import { useContext } from 'react'
+import { useEffect } from 'react'
+
+import loadingSrc from '../../../Images/loading.gif'
 
 function MainPage() {
-  const { todos } = useContext(TaskContext)
+  const { todos, fetchToDos, loading } = useContext(TaskContext)
+
+  useEffect(() => {  /* eslint-disable-line */
+    fetchToDos();  /* eslint-disable-line */
+  }, [])  /* eslint-disable-line */
 
 
   return (
@@ -17,16 +24,17 @@ function MainPage() {
     <Header/>
     <PageWrapper>
       <AddTodo/>
+      <LoadingContainer>{loading ? <LoadingGif src={loadingSrc} alt="loading..."/>: null}</LoadingContainer>
       { 
         todos.length > 0 ?
         <TodosDisplay>
             {
-              todos.map((todo) => {
-                return <Todo key={todo.id} id={todo.id} title={todo.title} todo={todo}/>
+              todos.map((todo, index) => {
+                return <Todo key={index} id={index} title={todo.title} todo={todo}/>
               })
             }
         </TodosDisplay> 
-        : <p>You do not have to-dos...</p>
+        : <></>
       } 
     </PageWrapper>
     </>
