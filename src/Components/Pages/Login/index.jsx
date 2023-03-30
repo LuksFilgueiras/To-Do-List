@@ -1,14 +1,16 @@
 import { PageContainer } from "../../Layout/PageWrapper/styles"
-import { InputContainer, LoginBox, LoginContainer, Button, ButtonContainer } from "./styles"
+import { InputContainer, LoginBox, LoginContainer, Button, ButtonContainer, AnonymousLogin } from "./styles"
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 import { useState } from "react";
 import { useNavigate, useParams  } from "react-router-dom"
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase";
 import { LogoContainer } from "../../Layout/Header/styles";
 import { useEffect } from "react";
+
+import { AiOutlineUser } from "react-icons/ai"
 
 function Login() {
   const navigate = useNavigate();
@@ -70,6 +72,14 @@ function Login() {
     });
   }
 
+  const LoginAsAnonymous = async () => {
+      await signInAnonymously(auth)
+      .then(() => {
+        if(auth?.currentUser?.isAnonymous)
+          navigate('/');
+      });
+  }
+
   return (
     <PageContainer>
       <ToastContainer/>
@@ -85,6 +95,7 @@ function Login() {
               <Button onClick={Login}>Login</Button>
               <Button onClick={signUpNavigate}>Sign Up</Button>
             </ButtonContainer>
+            <AnonymousLogin onClick={LoginAsAnonymous}><AiOutlineUser/>Anonymous</AnonymousLogin>
           </LoginBox>
           <p>simple to-do list</p>
       </LoginContainer>

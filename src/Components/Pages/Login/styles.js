@@ -13,7 +13,7 @@ export const LoginContainer = styled.div`
 
 export const LoginBox = styled.div`
     width: 21rem;
-    height: 30rem;
+    height: 32rem;
     background-color: #222;
     border-radius: 1rem;
     box-shadow: 0.2rem 0.2rem 10rem 1rem #000;
@@ -64,4 +64,10 @@ export const Button = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
+`;
+
+export const AnonymousLogin = styled.p`s
+    color: light-blue;
+    cursor: pointer;
+    padding: 0.5rem 0;
 `;
