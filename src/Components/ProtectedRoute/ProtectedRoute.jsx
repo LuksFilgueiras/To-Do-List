@@ -6,7 +6,7 @@ const ProtectedRoute = ({children }) => {
     const { currentUser } = useContext(AuthContext);
 
     if(!currentUser?.isAnonymous){
-      if (!currentUser || !currentUser?.emailVerified) {
+      if (!currentUser) {
         return <Navigate to={`/login`} replace />;
       }
     }

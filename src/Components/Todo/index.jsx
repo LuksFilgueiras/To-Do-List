@@ -17,7 +17,6 @@ function Todo({title, todo}) {
   const taskName = useRef(null);
 
   useEffect(() => {
-    console.log(title.length);
     title.length > 14 ?
         setFontSizeReduce("font-size-responsive")
       :

@@ -1,15 +1,16 @@
 import { PageContainer } from "../../Layout/PageWrapper/styles";
+import { LogoContainer } from "../../Layout/Header/styles";
+
 import { LoginContainer, LoginBox, InputContainer, Button, ButtonContainer } from "../Login/styles";
 import { AiOutlineRollback } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { auth } from "../../../Firebase/firebase";
-import { LogoContainer } from "../../Layout/Header/styles";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { auth } from "../../../Firebase/firebase";
 
 function SignUp() {
 
@@ -45,12 +46,13 @@ function SignUp() {
     
       const userData = {"email": email, "password": password}
       await createUserWithEmailAndPassword(auth, userData.email, userData.password)
-      .then(() => {
-          sendEmailVerification(auth.currentUser);
+      .then(() => {  
+          sendEmailVerification(auth?.currentUser);
+
           if(auth?.currentUser?.emailVerified){
-            navigate("/");
+              navigate("/");
           }else{
-            navigate(`/login/${auth?.currentUser?.emailVerified}`);
+              navigate(`/login/${auth?.currentUser?.emailVerified}`);
           }
       })
       .catch(error => {
