@@ -67,9 +67,13 @@ export const Button = styled.div`
 `;
 
 export const AnonymousLogin = styled.div`
-    color: light-blue;
     cursor: pointer;
     height: 2rem;
     display: flex;
     align-items: center;
+    
+    :hover{
+        color: #AAA;
+        transition: 0.2s;
+    }
 `;
