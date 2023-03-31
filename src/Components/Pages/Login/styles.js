@@ -53,6 +53,7 @@ export const ButtonContainer = styled.div`
     width: 100%;
     display: flex;
     margin-top: 1rem;
+    cursor: pointer;
     justify-content: space-between;
 `;
 
@@ -64,6 +65,11 @@ export const Button = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
+
+    :hover{
+        color: #AAA;
+        transition: 0.2s;
+    }
 `;
 
 export const AnonymousLogin = styled.div`
