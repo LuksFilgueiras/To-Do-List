@@ -39,7 +39,7 @@ export const TaskProvider = ({children}) => {
 
     const deleteToDo = async (todo) => {
         const todoDoc = doc(db, "todos", todo.id)
-        await deleteDoc(todoDoc);
+        await deleteDoc(todoDoc)
         fetchToDos();
     }
     return(

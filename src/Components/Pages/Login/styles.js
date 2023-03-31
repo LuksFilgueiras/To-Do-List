@@ -66,8 +66,10 @@ export const Button = styled.div`
     border-radius: 1rem;
 `;
 
-export const AnonymousLogin = styled.p`s
+export const AnonymousLogin = styled.div`
     color: light-blue;
     cursor: pointer;
-    padding: 0.5rem 0;
+    height: 2rem;
+    display: flex;
+    align-items: center;
 `;
