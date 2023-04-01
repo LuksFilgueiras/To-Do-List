@@ -13,7 +13,8 @@
 2. Masonry effect for larger views
 3. Uses styled-components for CSS
 4. Firebase as database
-5. Has React-Router-Dom implemented.
+5. Has React-Router-Dom implemented
+6. Has toastify implemented
 
 
 # Packages Version
