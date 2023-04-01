@@ -1,6 +1,6 @@
 # To-Do List made with ReactJS
 *Author: Lucas Filgueiras Silva*
-*Version: 0.0.2v*
+*Version: 0.0.6v*
 
 
 ## Running the App
@@ -14,10 +14,10 @@
 3. Uses styled-components for CSS
 4. Firebase as database
 5. Has React-Router-Dom implemented
-6. Has toastify implemented
+6. Has Toastify implemented
 
 
-# Packages Version
+# NPM and Node Version
 > npm version v9.6.2
 
 > node version v18.15.0
