@@ -13,10 +13,8 @@
 2. Masonry effect for larger views
 3. Uses styled-components for CSS
 4. Firebase as database
-5. Firestore security rules
-6. Firebase Auth
-5. React-Router-Dom implemented
-6. Toastify implemented
+5. Has React-Router-Dom implemented
+6. Has Toastify implemented
 
 
 # NPM and Node Version
